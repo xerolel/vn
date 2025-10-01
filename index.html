@@ -168,9 +168,47 @@
                 if(line.kuzuru === ""){
                   spriteKuzuru.style.display="none";
                   spriteKuzuru.src="";
+                } else {
+                  spriteKuzuru.style.display="block";
+                  spriteKuzuru.src = line.kuzuru;
                 }
+              } else { 
+                spriteKuzuru.style.display="none";
+                spriteKuzuru.src="";
               }
+              
+             
+              if(line.yume !== undefined){
+                if(line.yume === ""){
+                  spriteYume.style.display="none";
+                  spriteYume.src="";
+                } else {
+                  spriteYume.style.display="block";
+                  spriteYume.src = line.kuzuru;
+                }
+              } else { 
+                spriteYume.style.display="none";
+                spriteYume.src="";
+              }
+
+            } else {
+              if(sceneCallback) sceneCallback();
             }
+          }
+
+          // multi choice in case
+          function showChoices(options){
+            choicesDiv.innerHTML="";
+            options.forEach(opt=>{
+              const btn=document.createElement("button");
+              btn.className="choice-btn";
+              btn.textContent=opt.text;
+              btn.onclick=()=>{
+                opt.action();
+                choicesDiv.innerHTML="";
+              };
+              choicesDiv.appendChild(btn);
+            });
           }
 
           
