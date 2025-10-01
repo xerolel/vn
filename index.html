@@ -99,7 +99,7 @@ body {
 </head>
 <body>
 <div id="game-container">
-  <img id="opening-gif" src="for vn.gif">
+  <img id="opening-gif" src="for_vn.gif">
   <img id="scene-img" src="">
   <img id="background" src="">
   <img id="sprite-kuzuru" src="">
@@ -113,6 +113,7 @@ body {
 <script>
 const openingGif = document.getElementById("opening-gif");
 const playButton = document.getElementById("play-button");
+const dialogueBox = document.getElementById("dialogue-box");
 const dialogueText = document.getElementById("dialogue-text");
 const choicesDiv = document.getElementById("choices");
 const sceneImg = document.getElementById("scene-img");
@@ -223,16 +224,16 @@ function startIntro(){
   dialogueLines=[
     {text:"You're just an average student, with strong ambition to succeed.", background: "black.png"},
     {text:"But lately, your childhood friend Kuzuru has been acting strange with Yume.", background: "black.png"},
-    {text:"You: Hey guys, what's up? *you say, with a tired expression as always.", scene: "school.png", kuzuru:"kuzuru neutral2.png", yume:"yume neutral.png"},
-    {text:"Yume: Jeez dude, did you even get sleep last night?", kuzuru:"kuzuru intimidate.png", yume:"yume concerned.png"},
-    {text:"Kuzuru glares at you. No response, his eyes are just dark.", kuzuru:"kuzuru intimidate.png", yume: "yume concerned.png"},
-    {text:"<strong>Kuzuru</strong>: ...You should get some more sleep.", kuzuru:"kuzuru deadpan.png", yume: "yume neutral.png"},
-    {text:"<strong>Kuzuru</strong>: Otherwise you'll look more ghoulish than you already are.", kuzuru:"kuzuru deadpan.png", yume: "yume stares.png"},
-    {text:"Yume: At least he got some sleep, Yume says with a snicker.", yume:"yume teases.png", kuzuru:"kuzuru neutral2.png"},
-    {text:"Kuzuru replies with a chuckle, only reserved for Yume it seems.", kuzuru:"kuzuru chuckles.png", yume: "yume laughs.png"},
-    {text:"You feel a pang of jealousy, but brush it off. Kuzuru never laughed at your jokes.", scene: "angry you.png"},
-    {text:"Honestly, you feel like a third wheel sometimes. Well, most of the time.", scene: "angry you.png"},
-    {text:"You: Whatever, you murmur underneath your breath, let's just go to class.", scene: "angry you2.png"}
+    {text:"You: Hey guys, what's up? *you say, with a tired expression as always.", scene: "school.png", kuzuru:"kuzuru_neutral2.png", yume:"yume_neutral.png"},
+    {text:"Yume: Jeez dude, did you even get sleep last night?", kuzuru:"kuzuru_intimidate.png", yume:"yume_concerned.png"},
+    {text:"Kuzuru glares at you. No response, his eyes are just dark.", kuzuru:"kuzuru_intimidate.png", yume: "yume_concerned.png"},
+    {text:"<strong>Kuzuru</strong>: ...You should get some more sleep.", kuzuru:"kuzuru_deadpan.png", yume: "yume_neutral.png"},
+    {text:"<strong>Kuzuru</strong>: Otherwise you'll look more ghoulish than you already are.", kuzuru:"kuzuru_deadpan.png", yume: "yume_stares.png"},
+    {text:"Yume: At least he got some sleep, Yume says with a snicker.", yume:"yume_teases.png", kuzuru:"kuzuru_neutral2.png"},
+    {text:"Kuzuru replies with a chuckle, only reserved for Yume it seems.", kuzuru:"kuzuru_chuckles.png", yume: "yume_laughs.png"},
+    {text:"You feel a pang of jealousy, but brush it off. Kuzuru never laughed at your jokes.", scene: "angry_you.png"},
+    {text:"Honestly, you feel like a third wheel sometimes. Well, most of the time.", scene: "angry_you.png"},
+    {text:"You: Whatever, you murmur underneath your breath, let's just go to class.", scene: "angry_you2.png"}
   ];
 
   currentLine=0;
@@ -254,14 +255,14 @@ function startClassTime(){
   dialogueLines=[
     {text:"You: *Yawn*... seems like pulling an all-nighter did numbers on me. I can't even concentrate...", background: "black.png"},
     {text:"As you lift your head, rubbing your drowsy eyes, from your peripheral vision...", scene: "desk.png", kuzuru: ""},
-    {text:"Kuzuru is... staring at Yume... or you? You couldn't tell with that dark, unreadable expression.", kuzuru: "kuzuru stares.png"},
-    {text:"That was... odd. Did he seriously just... n-no, you must be seeing things.", kuzuru: "kuzuru looks away.png"},
+    {text:"Kuzuru is... staring at Yume... or you? You couldn't tell with that dark, unreadable expression.", kuzuru: "kuzuru_stares.png"},
+    {text:"That was... odd. Did he seriously just... n-no, you must be seeing things.", kuzuru: "kuzuru_looks_away.png"},
     {text:"You: Yume, *you whisper to her*.", background: "black.png"},
-    {text:"Yume: Hm? Need something? *she says, without looking up at you.*", yume:"yume speaking.png"},
-    {text:"You: I think Kuzuru is staring at you. Are you guys... like a thing?", yume:"yume smile.png"},
+    {text:"Yume: Hm? Need something? *she says, without looking up at you.*", yume:"yume_speaking.png"},
+    {text:"You: I think Kuzuru is staring at you. Are you guys... like a thing?", yume:"yume_smile.png"},
     {text:"Yume: !", yume:"shocked yume.png"},
-    {text:"Yume: Haha, well, I guess you could say that.", yume:"smiling yume.png"},
-    {text:"Honestly, you didn't know how to feel. It didn't feel much like a surprise. You were honestly expecting it.", yume:"yume smile.png"},
+    {text:"Yume: Haha, well, I guess you could say that.", yume:"smiling_yume.png"},
+    {text:"Honestly, you didn't know how to feel. It didn't feel much like a surprise. You were honestly expecting it.", yume:"yume_smile.png"},
     {text:"But it hurt. A lot. You felt like your heart was being squeezed. Of course, you guys have grown distant.", background: "black.png"},
     {text:"You: ...Congrats, *you murmur quietly. you almost felt a tear escape your eye, but you quickly blink it away.*", scene: "desk.png"},
     {text:"You felt something else stir beneath that heartbreak. It was anger. Betrayal.", background: "black.png"}
@@ -295,22 +296,22 @@ function startOutsideClasses(){
   spriteYume.style.display="none";
   spriteKuzuru.src="";
   spriteYume.src="";
-  sceneImg.src="after hours.png";
+  sceneImg.src="after_hours.png";
   background.style.display="none";
   background.src="";
 
   dialogueLines=[
     {text:"You couldn't take it anymore. You had to confront him about this relationship of theirs.", background: "black.png"},
     {text:"You: Kuzuru! Hey!", kuzuru:""},
-    {text:"Kuzuru stops almost immediately... towering over you.", kuzuru:"kuzuru neutral2.png"},
-    {text:"<strong>Kuzuru</strong>: ...What is it? *he says, his voice curt as ever.*", kuzuru:"kuzuru deadpan.png"},
-    {text:"You: Look, I want to know about you and Yume. Are you two seriously... dating or something?", kuzuru:"kuzuru neutral2.png"},
-    {text:"<strong>Kuzuru</strong>: Why do you care exactly? That is none of your concern.", kuzuru:"kuzuru deadpan.png"},
-    {text:"<strong>Kuzuru</strong>: Do you have a crush on her or something?", kuzuru:"kuzuru smiles.png"},
-    {text:"You: W-what? No! I just... well, I don't know. You're my friend... both of you are my friends, so why didn't you tell me?", kuzuru:"kuzuru smiles4.png"},
-    {text:"<strong>Kuzuru</strong>: Hmph. You really are dense, aren't you?", kuzuru:"kuzuru surprised.png"},
-    {text:"He said that so... quietly, almost like an incredulous whisper. You felt your face burn with humiliation.", kuzuru: "kuzuru neutral2.png"},
-    {text:"<strong>Kuzuru</strong>: Fine. If you want to know so badly, meet me after school. Alone.", kuzuru:"kuzuru smiles.png"},
+    {text:"Kuzuru stops almost immediately... towering over you.", kuzuru:"kuzuru_neutral2.png"},
+    {text:"<strong>Kuzuru</strong>: ...What is it? *he says, his voice curt as ever.*", kuzuru:"kuzuru_deadpan.png"},
+    {text:"You: Look, I want to know about you and Yume. Are you two seriously... dating or something?", kuzuru:"kuzuru_neutral2.png"},
+    {text:"<strong>Kuzuru</strong>: Why do you care exactly? That is none of your concern.", kuzuru:"kuzuru_deadpan.png"},
+    {text:"<strong>Kuzuru</strong>: Do you have a crush on her or something?", kuzuru:"kuzuru_smiles.png"},
+    {text:"You: W-what? No! I just... well, I don't know. You're my friend... both of you are my friends, so why didn't you tell me?", kuzuru:"kuzuru_smiles4.png"},
+    {text:"<strong>Kuzuru</strong>: Hmph. You really are dense, aren't you?", kuzuru:"kuzuru_surprised.png"},
+    {text:"He said that so... quietly, almost like an incredulous whisper. You felt your face burn with humiliation.", kuzuru: "kuzuru_neutral2.png"},
+    {text:"<strong>Kuzuru</strong>: Fine. If you want to know so badly, meet me after school. Alone.", kuzuru:"kuzuru_smiles.png"},
     {text:"And so you did. You had no reason to distrust him, though you've never been at his house before.", background: "black.png"},
     {text:"Things should've been fine. They should've been normal. But they weren't. They never were.", background: "black.png"}
   ];
@@ -327,25 +328,25 @@ function startBasement(){
   spriteYume.style.display="none";
   spriteKuzuru.src="";
   spriteYume.src="";
-  sceneImg.src="his home.png";
+  sceneImg.src="his_home.png";
   background.style.display="none";
   background.src="";
 
   dialogueLines=[
     {text:"You couldn't even register the air growing cold as he shuts the heavy door behind you, before he gripped your wrist tightly.", background: "black.png"},
     {text:"You: Kuzuru? What are you...?", kuzuru: "..."},
-    {text:"<strong>Kuzuru</strong>: Sh. Just be quiet.", kuzuru:"kuzuru dead.png"},
-    {text:"!", kuzuru:"kuzuru grabs.png"},
+    {text:"<strong>Kuzuru</strong>: Sh. Just be quiet.", kuzuru:"kuzuru_dead.png"},
+    {text:"!", kuzuru:"kuzuru_grabs.png"},
     {text:"His hand brushes your face.", background: "holding.png"},
     {text:"Then everything turned black.", background: "black.png"},
     {text:"You wake up in a dimly lit basement, air thick with neglect and mold. But, before the scent even reached your nose, you saw him.", kuzuru:"", background: "black.png"},
-    {text:"There he was. RIGHT IN FRONT OF YOU. Crouched, smiling at you as his soulless eyes that were once dark, were now pale.", kuzuru:"kidnap smile.png"},
-    {text:"<strong>Kuzuru</strong>: You're finally awake. That's good. Longer, and I would've thought you were dead.", kuzuru:"kidnap smile2.png"},
+    {text:"There he was. RIGHT IN FRONT OF YOU. Crouched, smiling at you as his soulless eyes that were once dark, were now pale.", kuzuru:"kidnap_smile.png"},
+    {text:"<strong>Kuzuru</strong>: You're finally awake. That's good. Longer, and I would've thought you were dead.", kuzuru:"kidnap_smile2.png"},
     {text:"You: What the... what is going on? What are you DOING?", kuzuru:"kidnap smile.png"},
-    {text:"<strong>Kuzuru</strong>: Quiet. Don't be scared. I'm not going to hurt you. On the contrary, I'm going to take good care of you.", kuzuru:"kidnap happy.png"},
-    {text:"<strong>Kuzuru</strong>: You see, I've always been watching you. Ever since you transferred here.", kuzuru:"kidnap smile.png"},
-    {text:"You: But what about Yume?", kuzuru:"kidnap deadpan.png"},
-    {text:"<strong>Kuzuru</strong>: She was a means to an end. I never liked anyone. Until I met you.", kuzuru:"kidnap speak.png"},
+    {text:"<strong>Kuzuru</strong>: Quiet. Don't be scared. I'm not going to hurt you. On the contrary, I'm going to take good care of you.", kuzuru:"kidnap_happy.png"},
+    {text:"<strong>Kuzuru</strong>: You see, I've always been watching you. Ever since you transferred here.", kuzuru:"kidnap_smile.png"},
+    {text:"You: But what about Yume?", kuzuru:"kidnap_deadpan.png"},
+    {text:"<strong>Kuzuru</strong>: She was a means to an end. I never liked anyone. Until I met you.", kuzuru:"kidnap_speak.png"},
     {text:"Your heart is racing. Then you realize... you are completely at his mercy.", background: "black.png", kuzuru: ""}
   ];
 
