@@ -120,8 +120,19 @@ const sceneImg = document.getElementById("scene-img");
 const spriteKuzuru = document.getElementById("sprite-kuzuru");
 const spriteYume = document.getElementById("sprite-yume");
 const background = document.getElementById("background");
+const imageFiles = [
+  "kuzuru_neutral2.png", "kuzuru_intimidate.png",
+  "yume_neutral.png", "yume_concerned.png",
+  "school.png", "classroom.png", "desk.png", "black.png"
+];
 
-// --- Opening GIF ---
+const images = {};
+imageFiles.forEach(file => {
+  images[file] = new Image();
+  images[file].src = file;
+});
+
+// gif
 openingGif.addEventListener("load", () => {
   setTimeout(() => {
     openingGif.style.display="none";
@@ -129,63 +140,57 @@ openingGif.addEventListener("load", () => {
   }, 760);
 });
 
-// --- Play button ---
+// play button
 playButton.addEventListener("click", () => {
   playButton.style.display="none";
   startIntro();
 });
 
-// --- Game state ---
+// game state
 let currentLine=0;
 let dialogueLines=[];
 let sceneCallback=null;
 
-// --- Advance dialogue ---
+
 function advanceDialogue(){
   currentLine++;
   if(currentLine<dialogueLines.length){
     const line = dialogueLines[currentLine];
     dialogueText.innerHTML = line.text;
 
-    // Handle background
+  
     if(line.background !== undefined){
+      background.src = line.background
       background.style.display="block";
-      background.src = line.background;
     } else {
       background.style.display = "none";
-      background.src = "";
     }
 
-    // Handle scene image
     if(line.scene){
       sceneImg.src = line.scene;
     }
 
-    // Handle sprites (hide automatically if not defined)
+    
     if(line.kuzuru !== undefined){
       if(line.kuzuru === ""){
         spriteKuzuru.style.display="none";
-        spriteKuzuru.src="";
       } else {
         spriteKuzuru.style.display="block";
         spriteKuzuru.src = line.kuzuru;
       }
     } else {
       spriteKuzuru.style.display="none";
-      spriteKuzuru.src="";
     }
 
     if(line.yume !== undefined){
       if(line.yume === ""){
         spriteYume.style.display="none";
-        spriteYume.src="";
       } else {
         spriteYume.style.display="block";
         spriteYume.src = line.yume;
       }
     } else {
       spriteYume.style.display="none";
-      spriteYume.src="";
     }
 
   } else {
@@ -193,7 +198,7 @@ function advanceDialogue(){
   }
 }
 
-// --- Multi-choice helper ---
+
 function showChoices(options){
   choicesDiv.innerHTML="";
   options.forEach(opt=>{
@@ -208,7 +213,7 @@ function showChoices(options){
   });
 }
 
-// --- Scene 1: Intro ---
+
 function startIntro(){
   // reset everything at start of scene
   spriteKuzuru.style.display="none";
@@ -242,7 +247,7 @@ function startIntro(){
   dialogueBox.onclick = advanceDialogue;
 }
 
-// --- Scene 2: Class Time ---
+
 function startClassTime(){
   spriteKuzuru.style.display="none";
   spriteYume.style.display="none";
@@ -254,13 +259,13 @@ function startClassTime(){
 
   dialogueLines=[
     {text:"You: *Yawn*... seems like pulling an all-nighter did numbers on me. I can't even concentrate...", background: "black.png"},
-    {text:"As you lift your head, rubbing your drowsy eyes, from your peripheral vision...", scene: "desk.png", kuzuru: "..."},
+    {text:"As you lift your head, rubbing your drowsy eyes, from your peripheral vision...", scene: "desk.png", kuzuru: ""},
     {text:"Kuzuru is... staring at Yume... or you? You couldn't tell with that dark, unreadable expression.", kuzuru: "kuzuru_stares.png"},
     {text:"That was... odd. Did he seriously just... n-no, you must be seeing things.", kuzuru: "kuzuru_looks_away.png"},
     {text:"You: Yume, *you whisper to her*.", background: "black.png"},
     {text:"Yume: Hm? Need something? *she says, without looking up at you.*", yume:"yume_speaking.png"},
     {text:"You: I think Kuzuru is staring at you. Are you guys... like a thing?", yume:"yume_smile.png"},
-    {text:"Yume: !", yume:"shocked yume.png"},
+    {text:"Yume: !", yume:"shocked_yume.png"},
     {text:"Yume: Haha, well, I guess you could say that.", yume:"smiling_yume.png"},
     {text:"Honestly, you didn't know how to feel. It didn't feel much like a surprise. You were honestly expecting it.", yume:"yume_smile.png"},
     {text:"But it hurt. A lot. You felt like your heart was being squeezed. Of course, you guys have grown distant.", background: "black.png"},
@@ -302,7 +307,7 @@ function startOutsideClasses(){
 
   dialogueLines=[
     {text:"You couldn't take it anymore. You had to confront him about this relationship of theirs.", background: "black.png"},
-    {text:"You: Kuzuru! Hey!", kuzuru:"..."},
+    {text:"You: Kuzuru! Hey!", background: "after_hours.png"},
     {text:"Kuzuru stops almost immediately... towering over you.", kuzuru:"kuzuru_neutral2.png"},
     {text:"<strong>Kuzuru</strong>: ...What is it? *he says, his voice curt as ever.*", kuzuru:"kuzuru_deadpan.png"},
     {text:"You: Look, I want to know about you and Yume. Are you two seriously... dating or something?", kuzuru:"kuzuru_neutral2.png"},
@@ -334,17 +339,17 @@ function startBasement(){
 
   dialogueLines=[
     {text:"You couldn't even register the air growing cold as he shuts the heavy door behind you, before he gripped your wrist tightly.", background: "black.png"},
-    {text:"You: Kuzuru? What are you...?", kuzuru: "..."},
+    {text:"You: Kuzuru? What are you...?", background: "his_home.png"},
     {text:"<strong>Kuzuru</strong>: Sh. Just be quiet.", kuzuru:"kuzuru_deadpan.png"},
     {text:"!", kuzuru:"kuzuru_grabs.png"},
-    {text:"His hand brushes your face.", background: "holding.png"},
+    {text:"His hand brushes your face.", kuzuru: "holding.png"},
     {text:"Then everything turned black.", background: "black.png"},
     {text:"You wake up in a dimly lit basement, air thick with neglect and mold. But, before the scent even reached your nose, you saw him.", kuzuru:"", background: "black.png"},
     {text:"There he was. RIGHT IN FRONT OF YOU. Crouched, smiling at you as his soulless eyes that were once dark, were now pale.", kuzuru:"kidnap_smile.png"},
     {text:"<strong>Kuzuru</strong>: You're finally awake. That's good. Longer, and I would've thought you were dead.", kuzuru:"kidnap_smile2.png"},
-    {text:"You: What the... what is going on? What are you DOING?", kuzuru:"kidnap smile.png"},
+    {text:"You: What the... what is going on? What are you DOING?", kuzuru:"kidnap_smile.png"},
     {text:"<strong>Kuzuru</strong>: Quiet. Don't be scared. I'm not going to hurt you. On the contrary, I'm going to take good care of you.", kuzuru:"kidnap_happy.png"},
-    {text:"<strong>Kuzuru</strong>: You see, I've always been watching you. Ever since you transferred here.", kuzuru:"kidnap_smile.png"},
+    {text:"<strong>Kuzuru</strong>: You see, I've always been watching you. Ever since you transferred here.", kuzuru:"kidnap_smile2.png"},
     {text:"You: But what about Yume?", kuzuru:"kidnap_deadpan.png"},
     {text:"<strong>Kuzuru</strong>: She was a means to an end. I never liked anyone. Until I met you.", kuzuru:"kidnap_speak.png"},
     {text:"Your heart is racing. Then you realize... you are completely at his mercy.", background: "black.png", kuzuru: ""}
