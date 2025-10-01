@@ -113,7 +113,6 @@ body {
 <script>
 const openingGif = document.getElementById("opening-gif");
 const playButton = document.getElementById("play-button");
-const dialogueBox = document.getElementById("dialogue-box");
 const dialogueText = document.getElementById("dialogue-text");
 const choicesDiv = document.getElementById("choices");
 const sceneImg = document.getElementById("scene-img");
@@ -126,7 +125,7 @@ openingGif.addEventListener("load", () => {
   setTimeout(() => {
     openingGif.style.display="none";
     playButton.style.display="block";
-  }, 1200);
+  }, 780);
 });
 
 // --- Play button ---
@@ -225,11 +224,11 @@ function startIntro(){
     {text:"You're just an average student, with strong ambition to succeed.", background: "black.png"},
     {text:"But lately, your childhood friend Kuzuru has been acting strange with Yume.", background: "black.png"},
     {text:"You: Hey guys, what's up? *you say, with a tired expression as always.", scene: "school.png", kuzuru:"kuzuru neutral2.png", yume:"yume neutral.png"},
-    {text:"Yume: Jeez girl, did you even get sleep last night?", kuzuru:"kuzuru intimidate.png", yume:"yume concerned.png"},
+    {text:"Yume: Jeez dude, did you even get sleep last night?", kuzuru:"kuzuru intimidate.png", yume:"yume concerned.png"},
     {text:"Kuzuru glares at you. No response, his eyes are just dark.", kuzuru:"kuzuru intimidate.png", yume: "yume concerned.png"},
     {text:"<strong>Kuzuru</strong>: ...You should get some more sleep.", kuzuru:"kuzuru deadpan.png", yume: "yume neutral.png"},
-    {text:"<strong>Kuzuru</strong>: Otherwise you'll look more ghoulish than you alreaedy are.", kuzuru:"kuzuru deadpan.png", yume: "yume stares.png"},
-    {text:"Yume: At least she got some sleep, Yume says with a snicker.", yume:"yume teases.png", kuzuru:"kuzuru neutral2.png"},
+    {text:"<strong>Kuzuru</strong>: Otherwise you'll look more ghoulish than you already are.", kuzuru:"kuzuru deadpan.png", yume: "yume stares.png"},
+    {text:"Yume: At least he got some sleep, Yume says with a snicker.", yume:"yume teases.png", kuzuru:"kuzuru neutral2.png"},
     {text:"Kuzuru replies with a chuckle, only reserved for Yume it seems.", kuzuru:"kuzuru chuckles.png", yume: "yume laughs.png"},
     {text:"You feel a pang of jealousy, but brush it off. Kuzuru never laughed at your jokes.", scene: "angry you.png"},
     {text:"Honestly, you feel like a third wheel sometimes. Well, most of the time.", scene: "angry you.png"},
@@ -336,6 +335,7 @@ function startBasement(){
     {text:"You couldn't even register the air growing cold as he shuts the heavy door behind you, before he gripped your wrist tightly.", background: "black.png"},
     {text:"You: Kuzuru? What are you...?", kuzuru: "..."},
     {text:"<strong>Kuzuru</strong>: Sh. Just be quiet.", kuzuru:"kuzuru dead.png"},
+    {text:"!", kuzuru:"kuzuru grabs.png"},
     {text:"His hand brushes your face.", background: "holding.png"},
     {text:"Then everything turned black.", background: "black.png"},
     {text:"You wake up in a dimly lit basement, air thick with neglect and mold. But, before the scent even reached your nose, you saw him.", kuzuru:"", background: "black.png"},
