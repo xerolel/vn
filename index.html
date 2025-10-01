@@ -116,6 +116,62 @@
         <script>
 
           const openingGif = document.getElementbyId("opening-gif");
+          const playButton = document.getElementById("play-button");
+          const dialogueBox = document.getElementbyId("dialogue-box");
+          const dialogueText = document.getElementbyId("dialogue-text");
+          const choicesDiv = document.getElementbyId("choices");
+          const sceneImg = document.getElementbyId("scene-img");
+          const spriteKuzuru = document.getElementbyId("sprite-kuzuru");
+          const spriteYume = document.getElementbyId("sprite-yume");
+          const background = document.getElementbyId("background");
+
+          openingGif.addEventListener("load", () => {
+            setTimeout(()  => {
+              openingGif.style.display="none";
+              playButton.style.display="block";
+            }, 1200);
+          });
           
- 
+          // play button ! 
+          playButton.addEventListener("click", () => {
+            playButton.style.display="none";
+            startIntro();
+          });
+        
+          // game state 
+          let currentLine=0;
+          let dialogueLine=[];
+          let sceneCallback=null;
+
+          // advance dialogue
+          function advanceDialogue(){
+            currentLine++;
+            if(currentLine<dialogueLines.length){
+              const line = dialogueLines[currentLine];
+              dialogueText.innerHTML = line.text;
+
+              if(line.background !== undefined){
+                background.style.display="block";
+                background.src = line.background;
+              } else {
+                background.style.display="none";
+                background.src = "";
+              }
+
+              // scene images
+              if(line.scene){
+                sceneImg.src = line.scene;
+              }
+
+              // handle sprites. auto hide them if not defined
+              if(line.kuzuru !== undefined){
+                if(line.kuzuru === ""){
+                  spriteKuzuru.style.display="none";
+                  spriteKuzuru.src="";
+                }
+              }
+            }
+          }
+
+          
         
