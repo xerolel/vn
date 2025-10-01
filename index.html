@@ -1,300 +1,296 @@
-<DOCTYPE html> 
-  <html lang="en">
-    <head> 
-      <meta charset="UTF-8">
-      <title>In Plain Sight</title>
-      <style>
-        body {
-          margin: 0;
-          background: black;
-          font-family: "Courier New", monospace;
-          overflow: hidden;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh
-        }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>In Plain Sight</title>
+<style>
+body {
+  margin: 0;
+  background: black;
+  font-family: "Courier New", monospace;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-        #game-container {
-          width: 1280px;
-          height: 720px;
-          background: black;
-          position: relative;
-          overflow: hidden;
-          border: 10px solid black;
-          box-sizing: content-box
-        }
+#game-container {
+  width: 1280px;
+  height: 720px;
+  background: black;
+  position: relative;
+  overflow: hidden;
+  border: 10px solid black;
+  box-sizing: content-box;
+}
 
-        #scene-img, #sprite-kuzuru, #sprite-yume, #opening-gif, #background {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          z-index: 0;
-        }
+#scene-img, #sprite-kuzuru, #sprite-yume, #opening-gif, #background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
 
+#sprite-kuzuru, #sprite-yume {
+  bottom: 0;
+  display: none;
+  z-index: 1;
+}
 
-        #sprite-kuzuru, #sprite-yume {
-          bottom: 0;
-          display: none;
-          z-index: 1;
-        }
+#dialogue-box {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  padding: 20px;
+  background: rgba(0,0,0,0.85);
+  border-top: 3px solid white;
+  color: white;
+  font-size: 18px;
+  line-height: 1.5;
+  display: none;
+  z-index: 2;
+}
 
-        #dialogue-box {
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 90%;
-          padding: 20px;
-          background: rgba(0,0,0,0.85);
-          border-top: 3px solid white;
-          color: white;
-          font-size: 18px;
-          line-height: 1.5;
-          display: none;
-          z-index: 2;
-        }
+#choices {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-        #choices {
-          margin-top: 15px;
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-        }
+.choice-btn {
+  background: black;
+  color: white;
+  border: 2px solid white;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
 
-        .choice-btn {
-          background: black;
-          color: white;
-          border: 2px solid white;
-          padding: 10px;
-          cursor: pointer;
-          font-size: 16px;
-          transition: all 0.2s ease;
+.choice-btn:hover {
+  background: white;
+  color: black;
+}
 
-        }
+#play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: black;
+  color: white;
+  font-size: 28px;
+  padding: 15px 50px;
+  border: 3px solid white;
+  cursor: pointer;
+  display: none;
+  z-index: 3;
+}
 
-        .choice-btn:hover {
-          background:white;
-          color:black;
-        }
-        
-        
-        #play-button {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          background: black;
-          color: white;
-          font-size: 28px;
-          padding: 15px 50px;
-          border: 3px solid white;
-          cursor: pointer;
-          display: none;
-          z-index: 3;
-        }
+#play-button:hover { background:white; color:black; }
+</style>
+</head>
+<body>
+<div id="game-container">
+  <img id="opening-gif" src="for vn.gif">
+  <img id="scene-img" src="">
+  <img id="background" src="">
+  <img id="sprite-kuzuru" src="">
+  <img id="sprite-yume" src="">
+  <div id="dialogue-box">
+    <p id="dialogue-text"></p>
+    <div id="choices"></div>
+  </div>
+  <button id="play-button">PLAY</button>
+</div>
+<script>
+const openingGif = document.getElementById("opening-gif");
+const playButton = document.getElementById("play-button");
+const dialogueBox = document.getElementById("dialogue-box");
+const dialogueText = document.getElementById("dialogue-text");
+const choicesDiv = document.getElementById("choices");
+const sceneImg = document.getElementById("scene-img");
+const spriteKuzuru = document.getElementById("sprite-kuzuru");
+const spriteYume = document.getElementById("sprite-yume");
+const background = document.getElementById("background");
 
-      #play-button:hover { background:white; color:black; }
-      </style>
-      </head>
-      <body>
-        <div id="game-container">
-          <img id="opening-gif" src="for vn.gif">
-          <img id="scene-img" src="">
-          <img id="background" src="for vn.gif">
-          <img id="sprite-kuzuru" src="for vn.gif">
-          <img id="sprite-yume" src="for vn.gif">
-          <img id="dialogue-box" src="for vn.gif">
-          <img id="dialogue-text" src="for vn.gif">
-         <p id="choices"></div>
-         </div>
-         <button id = "play-button">play</button>
-        </div>
-        <script>
+// --- Opening GIF ---
+openingGif.addEventListener("load", () => {
+  setTimeout(() => {
+    openingGif.style.display="none";
+    playButton.style.display="block";
+  }, 1200);
+});
 
-          const openingGif = document.getElementById("opening-gif");
-          const playButton = document.getElementById("play-button");
-          const dialogueBox = document.getElementById("dialogue-box");
-          const dialogueText = document.getElementById("dialogue-text");
-          const choicesDiv = document.getElementById("choices");
-          const sceneImg = document.getElementById("scene-img");
-          const spriteKuzuru = document.getElementById("sprite-kuzuru");
-          const spriteYume = document.getElementById("sprite-yume");
-          const background = document.getElementById("background");
+// --- Play button ---
+playButton.addEventListener("click", () => {
+  playButton.style.display="none";
+  startIntro();
+});
 
-          openingGif.addEventListener("load", () => {
-            setTimeout(()  => {
-              openingGif.style.display="none";
-              playButton.style.display="block";
-            }, 1200);
-          });
-          
-          // play button ! 
-          playButton.addEventListener("click", () => {
-            playButton.style.display="none";
-            startIntro();
-          });
-        
-          // game state 
-          let currentLine=0;
-          let dialogueLine=[];
-          let sceneCallback=null;
+// --- Game state ---
+let currentLine=0;
+let dialogueLines=[];
+let sceneCallback=null;
 
-          // advance dialogue
-          function advanceDialogue(){
-            currentLine++;
-            if(currentLine<dialogueLines.length){
-              const line = dialogueLines[currentLine];
-              dialogueText.innerHTML = line.text;
+// --- Advance dialogue ---
+function advanceDialogue(){
+  currentLine++;
+  if(currentLine<dialogueLines.length){
+    const line = dialogueLines[currentLine];
+    dialogueText.innerHTML = line.text;
 
-              if(line.background !== undefined){
-                background.style.display="block";
-                background.src = line.background;
-              } else {
-                background.style.display="none";
-                background.src = "";
-              }
+    // Handle background
+    if(line.background !== undefined){
+      background.style.display="block";
+      background.src = line.background;
+    } else {
+      background.style.display = "none";
+      background.src = "";
+    }
 
-              // scene images
-              if(line.scene){
-                sceneImg.src = line.scene;
-              }
+    // Handle scene image
+    if(line.scene){
+      sceneImg.src = line.scene;
+    }
 
-              // handle sprites. auto hide them if not defined
-              if(line.kuzuru !== undefined){
-                if(line.kuzuru === ""){
-                  spriteKuzuru.style.display="none";
-                  spriteKuzuru.src="";
-                } else {
-                  spriteKuzuru.style.display="block";
-                  spriteKuzuru.src = line.kuzuru;
-                }
-              } else { 
-                spriteKuzuru.style.display="none";
-                spriteKuzuru.src="";
-              }
-              
-             
-              if(line.yume !== undefined){
-                if(line.yume === ""){
-                  spriteYume.style.display="none";
-                  spriteYume.src="";
-                } else {
-                  spriteYume.style.display="block";
-                  spriteYume.src = line.Yume;
-                }
-              } else { 
-                spriteYume.style.display="none";
-                spriteYume.src="";
-              }
-
-            } else {
-              if(sceneCallback) sceneCallback();
-            }
-          }
-
-          // multi choice in case
-          function showChoices(options){
-            choicesDiv.innerHTML="";
-            options.forEach(opt=>{
-              const btn=document.createElement("button");
-              btn.className="choice-btn";
-              btn.textContent=opt.text;
-              btn.onclick=()=>{
-                opt.action();
-                choicesDiv.innerHTML="";
-              };
-              choicesDiv.appendChild(btn);
-            });
-          }
- 
-          
-        // intro
-        function startIntro() {
-          // reset everything at the start of scene
-          spriteKuzuru.style.display="none";
-          spriteYume.style.display="none";
-          spriteKuzuru.src="";
-          spriteYume.src="";
-          sceneImg.src="";
-          background.style.display="none";
-          background.src="";
-
-          dialogueBox.style.display="block";
-
-          dialogueLines=[
-            {text: "You're an average student with an average life, in love with your friend, Yume.", background: "black.png"},
-            {text: "But lately, your childhood friend Kuzuru has been acting.. strange with your crush.", background: "black.png"},
-            {text: "You: Hey everyone, what's up? *you say, with a tired expression.*", scene: "school.png", kuzuru:"kuzuru neutral12.png"},
-            {text: "Yume: Jeez dude, did you even sleep last night?", kuzuru: "kuzuru intimidate.png", yume:"yume concerned.png"},
-            {text: "Kuzuru glares at you. No response, his eyes are just... dark.", kuzuru: "kuzuru intimidate.png", yume:"yume concerned.png"},
-            {text: "<strong>Kuzuru</strong>: ...You should get some more sleep.", kuzuru: "deadpan.png", yume: "neutral.png"},
-            {text: "<strong>Kuzuru</strong>: Otherwise you'll look more ghoulish than you already are.", kuzuru: "deadpan.png", yume: "stares.png"},
-            {text: "Yume: At least he GOT some sleep, Yume says with a snicker", kuzuru: "neutral2.png", yume: "teases.png"},
-            {text: "Kuzuru replies with a chuckle, only reserved for Yume", kuzuru: "chuckles.png", yume: "yume laughs.png"},
-            {text: "You feel a pang of jealousy, but brush it off. Yume never laughed at your jokes.", scene: "angry you.png"},
-            {text: "Honestly, you feel like a third wheel sometimes. Most of the time.", scene: "angry you.png"},
-            {text: "You: Whatever, *you mumur underneath your breath,* let's just go to class.", scene: "angry you2.png"},
-        ];
-
-        currentLine=0;
-        dialogueText.innerHTML = dialogyeLines[currentLine].text;
-        sceneCallback=startClassTime;
-        dialogueBox.oneclick = advanceDialogue;
-        }
-
-        // class time
-        function startClassTime(){
-          spriteKuzuru.style.display="none";
-          spriteYume.style.display="none";
-          spriteKuzuru.src="";
-          spriteYume.src="";
-          sceneImg.src="classroom.png";
-          background.style.display="none";
-          background.src="";
-
-         dialogueLines=[
-         {text:"You: *Yawn*... seems like pulling an all-nighter did numbers on me. I can't even concentrate...", background: "black.png"},
-         {text:"As you lift your head, rubbing your drowsy eyes, from your peripheral vision...", scene: "desk.png", kuzuru: ""},
-         {text:"Kuzuru is... staring at You...? Or Yume.. you can't tell With that dark, unreadable expression.", kuzuru: "kuzuru stares.png"},
-         {text:"That was... odd. Did he seriously just... n-no, you must be seeing things.", kuzuru: "kuzuru looks away.png"},
-         {text:"You: Yume, *you whisper to her*.", background: "black.png"},
-         {text:"Yume: Hm? Need something? *she says, without looking up at you.*", yume:"yume speaking.png"},
-         {text:"You: Are you and Kuzuru... a thing?", yume:"yume smile.png"},
-         {text:"Yume: !", yume:"shocked yume.png"},
-         {text:"Yume: Haha, well, I guess you could say that.", yume:"smiling yume.png"},
-         {text:"Honestly, you didn't know how to feel. It didn't feel much like a surprise. You were honestly expecting it.", yume:"yume smile.png"},
-         {text:"But it hurt. A lot. You felt like your heart was being squeezed. You've been growing distant to Yume.", background: "black.png"},
-         {text:"You: ...Congrats, *you murmur quietly. you almost felt a tear escape your eye, but you quickly blink it away.*", yume: "yume smile.png"},
-         {text:"You clenched your fist. Something else was stirring. Anger. How could he do this to you?", background: "black.png"}
-        ];
-
-       currentLine=0;
-       dialogueText.innerHTML = dialogueLines[currentLine].text;
-       sceneCallback=afterClassTransition;
-       dialogueBox.onclick = advanceDialogue;
-       }
-
-      function afterClassTransition(){
+    // Handle sprites (hide automatically if not defined)
+    if(line.kuzuru !== undefined){
+      if(line.kuzuru === ""){
+        spriteKuzuru.style.display="none";
+        spriteKuzuru.src="";
+      } else {
+        spriteKuzuru.style.display="block";
+        spriteKuzuru.src = line.kuzuru;
+      }
+    } else {
       spriteKuzuru.style.display="none";
-      spriteYume.style.display="none";
       spriteKuzuru.src="";
+    }
+
+    if(line.yume !== undefined){
+      if(line.yume === ""){
+        spriteYume.style.display="none";
+        spriteYume.src="";
+      } else {
+        spriteYume.style.display="block";
+        spriteYume.src = line.yume;
+      }
+    } else {
+      spriteYume.style.display="none";
       spriteYume.src="";
-      sceneImg.src="";
-      background.style.display="none";
-      background.src="";
+    }
 
-     dialogueLines=[ {text:"After class."} ];
-     currentLine=0;
-     dialogueText.innerHTML = dialogueLines[currentLine].text;
-     sceneCallback=startOutsideClasses;
-     dialogueBox.onclick=advanceDialogue
-     }
+  } else {
+    if(sceneCallback) sceneCallback();
+  }
+}
 
-// outside classes
+// --- Multi-choice helper ---
+function showChoices(options){
+  choicesDiv.innerHTML="";
+  options.forEach(opt=>{
+    const btn=document.createElement("button");
+    btn.className="choice-btn";
+    btn.textContent=opt.text;
+    btn.onclick=()=>{
+      opt.action();
+      choicesDiv.innerHTML="";
+    };
+    choicesDiv.appendChild(btn);
+  });
+}
+
+// --- Scene 1: Intro ---
+function startIntro(){
+  // reset everything at start of scene
+  spriteKuzuru.style.display="none";
+  spriteYume.style.display="none";
+  spriteKuzuru.src="";
+  spriteYume.src="";
+  sceneImg.src="";
+  background.style.display="none";
+  background.src="";
+
+  dialogueBox.style.display="block";
+
+  dialogueLines=[
+    {text:"You're just an average student, with strong ambition to succeed.", background: "black.png"},
+    {text:"But lately, your childhood friend Kuzuru has been acting strange with Yume.", background: "black.png"},
+    {text:"You: Hey guys, what's up? *you say, with a tired expression as always.", scene: "school.png", kuzuru:"kuzuru neutral2.png", yume:"yume neutral.png"},
+    {text:"Yume: Jeez girl, did you even get sleep last night?", kuzuru:"kuzuru intimidate.png", yume:"yume concerned.png"},
+    {text:"Kuzuru glares at you. No response, his eyes are just dark.", kuzuru:"kuzuru intimidate.png", yume: "yume concerned.png"},
+    {text:"<strong>Kuzuru</strong>: ...You should get some more sleep.", kuzuru:"kuzuru deadpan.png", yume: "yume neutral.png"},
+    {text:"<strong>Kuzuru</strong>: Otherwise you'll look more ghoulish than you alreaedy are.", kuzuru:"kuzuru deadpan.png", yume: "yume stares.png"},
+    {text:"Yume: At least she got some sleep, Yume says with a snicker.", yume:"yume teases.png", kuzuru:"kuzuru neutral2.png"},
+    {text:"Kuzuru replies with a chuckle, only reserved for Yume it seems.", kuzuru:"kuzuru chuckles.png", yume: "yume laughs.png"},
+    {text:"You feel a pang of jealousy, but brush it off. Kuzuru never laughed at your jokes.", scene: "angry you.png"},
+    {text:"Honestly, you feel like a third wheel sometimes. Well, most of the time.", scene: "angry you.png"},
+    {text:"You: Whatever, you murmur underneath your breath, let's just go to class.", scene: "angry you2.png"}
+  ];
+
+  currentLine=0;
+  dialogueText.innerHTML = dialogueLines[currentLine].text;
+  sceneCallback=startClassTime;
+  dialogueBox.onclick = advanceDialogue;
+}
+
+// --- Scene 2: Class Time ---
+function startClassTime(){
+  spriteKuzuru.style.display="none";
+  spriteYume.style.display="none";
+  spriteKuzuru.src="";
+  spriteYume.src="";
+  sceneImg.src="classroom.png";
+  background.style.display="none";
+  background.src="";
+
+  dialogueLines=[
+    {text:"You: *Yawn*... seems like pulling an all-nighter did numbers on me. I can't even concentrate...", background: "black.png"},
+    {text:"As you lift your head, rubbing your drowsy eyes, from your peripheral vision...", scene: "desk.png", kuzuru: ""},
+    {text:"Kuzuru is... staring at Yume... or you? You couldn't tell with that dark, unreadable expression.", kuzuru: "kuzuru stares.png"},
+    {text:"That was... odd. Did he seriously just... n-no, you must be seeing things.", kuzuru: "kuzuru looks away.png"},
+    {text:"You: Yume, *you whisper to her*.", background: "black.png"},
+    {text:"Yume: Hm? Need something? *she says, without looking up at you.*", yume:"yume speaking.png"},
+    {text:"You: I think Kuzuru is staring at you. Are you guys... like a thing?", yume:"yume smile.png"},
+    {text:"Yume: !", yume:"shocked yume.png"},
+    {text:"Yume: Haha, well, I guess you could say that.", yume:"smiling yume.png"},
+    {text:"Honestly, you didn't know how to feel. It didn't feel much like a surprise. You were honestly expecting it.", yume:"yume smile.png"},
+    {text:"But it hurt. A lot. You felt like your heart was being squeezed. Of course, you guys have grown distant.", background: "black.png"},
+    {text:"You: ...Congrats, *you murmur quietly. you almost felt a tear escape your eye, but you quickly blink it away.*", scene: "desk.png"},
+    {text:"You felt something else stir beneath that heartbreak. It was anger. Betrayal.", background: "black.png"}
+  ];
+
+  currentLine=0;
+  dialogueText.innerHTML = dialogueLines[currentLine].text;
+  sceneCallback=afterClassTransition;
+  dialogueBox.onclick = advanceDialogue;
+}
+
+function afterClassTransition(){
+  spriteKuzuru.style.display="none";
+  spriteYume.style.display="none";
+  spriteKuzuru.src="";
+  spriteYume.src="";
+  sceneImg.src="";
+  background.style.display="none";
+  background.src="";
+
+  dialogueLines=[ {text:"After class."} ];
+  currentLine=0;
+  dialogueText.innerHTML = dialogueLines[currentLine].text;
+  sceneCallback=startOutsideClasses;
+  dialogueBox.onclick=advanceDialogue
+}
+
+// after school
 function startOutsideClasses(){
   spriteKuzuru.style.display="block";
   spriteYume.style.display="none";
@@ -310,11 +306,11 @@ function startOutsideClasses(){
     {text:"Kuzuru stops almost immediately... towering over you.", kuzuru:"kuzuru neutral2.png"},
     {text:"<strong>Kuzuru</strong>: ...What is it? *he says, his voice curt as ever.*", kuzuru:"kuzuru deadpan.png"},
     {text:"You: Look, I want to know about you and Yume. Are you two seriously... dating or something?", kuzuru:"kuzuru neutral2.png"},
-    {text:"<strong>Kuzuru</strong>: Why do you care exactly? That is none of your concern.", kuzuru:"kuzuru speak.png"},
+    {text:"<strong>Kuzuru</strong>: Why do you care exactly? That is none of your concern.", kuzuru:"kuzuru deadpan.png"},
     {text:"<strong>Kuzuru</strong>: Do you have a crush on her or something?", kuzuru:"kuzuru smiles.png"},
     {text:"You: W-what? No! I just... well, I don't know. You're my friend... both of you are my friends, so why didn't you tell me?", kuzuru:"kuzuru smiles4.png"},
     {text:"<strong>Kuzuru</strong>: Hmph. You really are dense, aren't you?", kuzuru:"kuzuru surprised.png"},
-    {text:"He said that so... quietly, almost like an incredulous whisper. You felt your face burn with humiliation and anger.", background: "black.png"},
+    {text:"He said that so... quietly, almost like an incredulous whisper. You felt your face burn with humiliation.", kuzuru: "kuzuru neutral2.png"},
     {text:"<strong>Kuzuru</strong>: Fine. If you want to know so badly, meet me after school. Alone.", kuzuru:"kuzuru smiles.png"},
     {text:"And so you did. You had no reason to distrust him, though you've never been at his house before.", background: "black.png"},
     {text:"Things should've been fine. They should've been normal. But they weren't. They never were.", background: "black.png"}
@@ -332,14 +328,14 @@ function startBasement(){
   spriteYume.style.display="none";
   spriteKuzuru.src="";
   spriteYume.src="";
-  sceneImg.src="his house.png";
+  sceneImg.src="his home.png";
   background.style.display="none";
   background.src="";
 
   dialogueLines=[
     {text:"You couldn't even register the air growing cold as he shuts the heavy door behind you, before he gripped your wrist tightly.", background: "black.png"},
-    {text:"You: Kuzuru? What the..?", kuzuru: "..."},
-    {text:"<strong>Kuzuru</strong>: Shh. Just be quiet.", kuzuru:"kuzuru dead.png"},
+    {text:"You: Kuzuru? What are you...?", kuzuru: "..."},
+    {text:"<strong>Kuzuru</strong>: Sh. Just be quiet.", kuzuru:"kuzuru dead.png"},
     {text:"His hand brushes your face.", background: "holding.png"},
     {text:"Then everything turned black.", background: "black.png"},
     {text:"You wake up in a dimly lit basement, air thick with neglect and mold. But, before the scent even reached your nose, you saw him.", kuzuru:"", background: "black.png"},
@@ -348,9 +344,9 @@ function startBasement(){
     {text:"You: What the... what is going on? What are you DOING?", kuzuru:"kidnap smile.png"},
     {text:"<strong>Kuzuru</strong>: Quiet. Don't be scared. I'm not going to hurt you. On the contrary, I'm going to take good care of you.", kuzuru:"kidnap happy.png"},
     {text:"<strong>Kuzuru</strong>: You see, I've always been watching you. Ever since you transferred here.", kuzuru:"kidnap smile.png"},
-    {text:"You: But w-what? What about Yume? I thought you liked her?", kuzuru:"kidnap deadpan.png"},
+    {text:"You: But what about Yume?", kuzuru:"kidnap deadpan.png"},
     {text:"<strong>Kuzuru</strong>: She was a means to an end. I never liked anyone. Until I met you.", kuzuru:"kidnap speak.png"},
-    {text:"Your heart is racing. You realize you are completely at his mercy.", background: "black.png", kuzuru: ""}
+    {text:"Your heart is racing. Then you realize... you are completely at his mercy.", background: "black.png", kuzuru: ""}
   ];
 
   currentLine=0;
@@ -361,11 +357,3 @@ function startBasement(){
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-        
