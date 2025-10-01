@@ -210,6 +210,34 @@
               choicesDiv.appendChild(btn);
             });
           }
+ 
+          
+        // intro
+        function startIntro() {
+          // reset everything at the start of scene
+          spriteKuzuru.style.display="none";
+          spriteYume.style.display="none";
+          spriteKuzuru.src="";
+          spriteYume.src="";
+          sceneImg.src="";
+          background.style.display="none";
+          background.src="";
 
+          dialogueBox.style.display="block";
+
+          dialogueLines=[
+            {text: "You're an average student with an average life, in love with your friend, Yume.", background: "black.png"},
+            {text: "But lately, your childhood friend Kuzuru has been acting.. strange with your crush.", background: "black.png"},
+            {text: "You: Hey everyone, what's up? *you say, with a tired expression.*", scene: "school.png", kuzuru:"kuzuru neutral12.png"},
+            {text: "Yume: Jeez dude, did you even sleep last night?", kuzuru: "kuzuru intimidate.png", yume:"yume concerned.png"},
+            {text: "Kuzuru glares at you. No response, his eyes are just... dark.", kuzuru: "kuzuru intimidate.png", yume:"yume concerned.png"},
+            {text: "<strong>Kuzuru</strong>: ...You should get some more sleep.", kuzuru: "deadpan.png", yume: "neutral.png"},
+            {text: "<strong>Kuzuru</strong>: Otherwise you'll look more ghoulish than you already are.", kuzuru: "deadpan.png", yume: "stares.png"},
+            {text: "<strong>Kuzuru</strong>: Otherwise you'll look more ghoulish than you already are.", kuzuru: "deadpan.png", yume: "stares.png"},
+
+
+
+          ]
+        }
           
         
